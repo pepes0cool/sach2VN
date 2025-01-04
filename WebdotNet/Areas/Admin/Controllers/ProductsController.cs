@@ -58,7 +58,7 @@ namespace WebdotNet.Areas.Admin.Controllers
             TempData["success"] = "Products has been created successfully";
             return RedirectToAction("Index");
         }
-            return View();
+            return RedirectToAction("Index");
         }
         public IActionResult Edit(int? id)
         {

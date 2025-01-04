@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebdotNet.DataAccess.Migrations;
 using WebdotNet.DataAccess.Repository.IRepository;
 using WebdotNet.Models.ViewModels;
 using WebdotNet.Models;
@@ -9,6 +8,7 @@ using ShoppingCart = WebdotNet.Models.ShoppingCart;
 using WebdotNet.Utility;
 using static System.Net.WebRequestMethods;
 using Stripe.Checkout;
+using System.Net.Mail;
 
 namespace WebdotNet.Areas.Customer.Controllers
 {
@@ -123,7 +123,7 @@ namespace WebdotNet.Areas.Customer.Controllers
                         Currency = "usd",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
-                            Name = item.Product.Title
+                            Name = item.Product.ProductName
                         }
                     },
                     Quantity = item.Count
@@ -149,7 +149,7 @@ namespace WebdotNet.Areas.Customer.Controllers
         }
 
         [Authorize]
-        public IActionResult OrderConfirmation(int id)
+        public async Task<IActionResult> OrderConfirmation(int id)
         {
             OrderHeader obj = _unitOfWork.OrderHeader.Get(u => u.ID == id);
             obj.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == obj.ApplicationUserID);
@@ -160,6 +160,7 @@ namespace WebdotNet.Areas.Customer.Controllers
                 _unitOfWork.OrderHeader.UpdateStripePaymentID(obj.ID, session.Id, session.PaymentIntentId);
                 _unitOfWork.OrderHeader.UpdateStatus(obj.ID, SD.StatusApprove, SD.PaymentStatusApprove);
                 _unitOfWork.Save();
+
             }
             else
             {
@@ -206,19 +207,21 @@ namespace WebdotNet.Areas.Customer.Controllers
         private double GetPrice(ShoppingCart obj)
         {
             int x = obj.Count;
-            if (x >= 100)
-            {
-                return obj.Product.Price100;
-            }
-            else if (x >= 50)
-            {
-                return obj.Product.Price50;
-            }
-            else
-            {
-                return obj.Product.Price;
-            }
+            return obj.Product.ListPrice;
         }
 
+        public async Task SendEmail(string toEmailAddress, string emailSubject, string emailMessage)
+        {
+            var message = new MailMessage();
+            message.To.Add(toEmailAddress);
+
+            message.Subject = emailSubject;
+            message.Body = emailMessage;
+
+            using (var smtpClient = new SmtpClient())
+            {
+                await smtpClient.SendMailAsync(message);
+            }
+        }
     }
 }

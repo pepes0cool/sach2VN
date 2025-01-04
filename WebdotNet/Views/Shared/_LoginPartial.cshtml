@@ -1,13 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
-
+@using WebdotNet.DataAccess.Data
+@using WebdotNet.Models
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject ApplicationDbContext DbContext
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-            <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.FindByIdAsync(UserManager.GetUserId(User));
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserAsync(User).Result.UserName !</a>
     </li>
     <li class="nav-item">
             <form id="logoutForm" class="form-inline text-bg-light" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

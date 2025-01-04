@@ -107,7 +107,7 @@
                                     <li class="list-group-item d-flex justify-content-between p-2">
                                         <div class="row container">
                                             <div class="col-8">
-                                                <h6 class="my-0 text-primary">@detail.Product.Title</h6>
+                                                <h6 class="my-0 text-primary">@detail.Product.ProductName</h6>
                                                 <small class="text-muted">Price : @detail.Price $$</small><br />
                                                 <small class="text-muted">Quantity : @detail.Count X</small>
                                             </div>
@@ -146,9 +146,6 @@
                             </ul>
                             @if(User.IsInRole("Admin") || User.IsInRole("Employee")){
                                 <button type="submit" asp-action="ShipOrder" class="btn btn-primary form-control my-1"> Ship Order</button>
-                            }
-                            @if(Model.orderHeader.PaymentStatus != SD.StatusRefunded){
-                                <button type="submit" asp-action="CancelOrder" class="btn btn-danger form-control my-1">Cancel Order</button>
                             }
                         </div>
                     </div>

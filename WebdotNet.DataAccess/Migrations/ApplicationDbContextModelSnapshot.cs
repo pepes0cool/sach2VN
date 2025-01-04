@@ -254,37 +254,37 @@ namespace WebdotNet.DataAccess.Migrations
                         {
                             ID = 1,
                             DisplayOrder = 1,
-                            Name = "Action"
+                            Name = "Sneaker"
                         },
                         new
                         {
                             ID = 2,
                             DisplayOrder = 2,
-                            Name = "Horror"
+                            Name = "Formal Shoes"
                         },
                         new
                         {
                             ID = 3,
                             DisplayOrder = 3,
-                            Name = "SciFi"
+                            Name = "Basketball Shoes"
                         },
                         new
                         {
                             ID = 4,
                             DisplayOrder = 4,
-                            Name = "History"
+                            Name = "Football Shoes"
                         },
                         new
                         {
                             ID = 5,
                             DisplayOrder = 5,
-                            Name = "Comedy"
+                            Name = "Running Shoes"
                         },
                         new
                         {
                             ID = 6,
                             DisplayOrder = 6,
-                            Name = "Romance"
+                            Name = "Trekking Shoes"
                         });
                 });
 
@@ -389,10 +389,6 @@ namespace WebdotNet.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -401,23 +397,14 @@ namespace WebdotNet.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ISBN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<string>("Manufactorer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price100")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Price50")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
@@ -429,148 +416,6 @@ namespace WebdotNet.DataAccess.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Author = "Suzanne Collins",
-                            Category = "Action",
-                            Description = "A dystopian novel set in a post-apocalyptic world.",
-                            ISBN = "9780439023481",
-                            ListPrice = 10.99,
-                            Price = 9.9900000000000002,
-                            Price100 = 7.9900000000000002,
-                            Price50 = 8.9900000000000002,
-                            Title = "The Hunger Games",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Author = "Bram Stoker",
-                            Category = "Horror",
-                            Description = "A horror novel about the vampire Count Dracula.",
-                            ISBN = "9780141439846",
-                            ListPrice = 8.9900000000000002,
-                            Price = 7.9900000000000002,
-                            Price100 = 5.9900000000000002,
-                            Price50 = 6.9900000000000002,
-                            Title = "Dracula",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Author = "Frank Herbert",
-                            Category = "SciFi",
-                            Description = "A science fiction novel set in a distant future amidst a huge interstellar empire.",
-                            ISBN = "9780441013593",
-                            ListPrice = 9.9900000000000002,
-                            Price = 8.9900000000000002,
-                            Price100 = 6.9900000000000002,
-                            Price50 = 7.9900000000000002,
-                            Title = "Dune",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Author = "Yuval Noah Harari",
-                            Category = "History",
-                            Description = "A brief history of humankind.",
-                            ISBN = "9780062316097",
-                            ListPrice = 14.99,
-                            Price = 13.99,
-                            Price100 = 11.99,
-                            Price50 = 12.99,
-                            Title = "Sapiens",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Author = "Tina Fey",
-                            Category = "Comedy",
-                            Description = "A comedy memoir by Tina Fey.",
-                            ISBN = "9780316056892",
-                            ListPrice = 12.99,
-                            Price = 11.99,
-                            Price100 = 9.9900000000000002,
-                            Price50 = 10.99,
-                            Title = "Bossypants",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 6,
-                            Author = "Jane Austen",
-                            Category = "Romance",
-                            Description = "A romance novel by Jane Austen.",
-                            ISBN = "9780141040349",
-                            ListPrice = 7.9900000000000002,
-                            Price = 6.9900000000000002,
-                            Price100 = 4.9900000000000002,
-                            Price50 = 5.9900000000000002,
-                            Title = "Pride and Prejudice",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 7,
-                            Author = "Suzanne Collins",
-                            Category = "Action",
-                            Description = "The second book in The Hunger Games series.",
-                            ISBN = "9780439023498",
-                            ListPrice = 10.99,
-                            Price = 9.9900000000000002,
-                            Price100 = 7.9900000000000002,
-                            Price50 = 8.9900000000000002,
-                            Title = "Catching Fire",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 8,
-                            Author = "Mary Shelley",
-                            Category = "Horror",
-                            Description = "A horror novel about a scientist who creates a monster.",
-                            ISBN = "9780141439471",
-                            ListPrice = 8.9900000000000002,
-                            Price = 7.9900000000000002,
-                            Price100 = 5.9900000000000002,
-                            Price50 = 6.9900000000000002,
-                            Title = "Frankenstein",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 9,
-                            Author = "William Gibson",
-                            Category = "SciFi",
-                            Description = "A science fiction novel that tells the story of a washed-up computer hacker.",
-                            ISBN = "9780441569595",
-                            ListPrice = 9.9900000000000002,
-                            Price = 8.9900000000000002,
-                            Price100 = 6.9900000000000002,
-                            Price50 = 7.9900000000000002,
-                            Title = "Neuromancer",
-                            imgUrl = ""
-                        },
-                        new
-                        {
-                            ID = 10,
-                            Author = "Jared Diamond",
-                            Category = "History",
-                            Description = "A history book that explores the factors that contributed to the development of human societies.",
-                            ISBN = "9780393354324",
-                            ListPrice = 14.99,
-                            Price = 13.99,
-                            Price100 = 11.99,
-                            Price50 = 12.99,
-                            Title = "Guns, Germs, and Steel",
-                            imgUrl = ""
-                        });
                 });
 
             modelBuilder.Entity("WebdotNet.Models.ShoppingCart", b =>

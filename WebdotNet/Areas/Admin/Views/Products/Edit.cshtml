@@ -22,23 +22,13 @@
                         </div>
                         <div asp-validation-summary="ModelOnly"></div>
                         <div class="form-floating py-2 col-12">
-                            <input asp-for="Title" class="form-control border-0 shadow" />
-                            <label asp-for="Title" class="ms-2"></label>
-                            <span asp-validation-for="Title" class="text-danger"></span>
+                            <input asp-for="ProductName" class="form-control border-0 shadow" />
+                            <label asp-for="ProductName" class="ms-2"></label>
+                            <span asp-validation-for="ProductName" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             <textarea asp-for="Description" class="form-control border-0 shadow"></textarea>
                             <label asp-for="Description" class="ms-2"></label>
-                        </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="Author" class="form-control border-0 shadow" />
-                            <label asp-for="Author" class="ms-2"></label>
-                            <span asp-validation-for="Author" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="ISBN" class="form-control border-0 shadow" />
-                            <label asp-for="ISBN" class="ms-2"></label>
-                            <span asp-validation-for="ISBN" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             <input asp-for="ListPrice" class="form-control border-0 shadow" />
@@ -46,19 +36,9 @@
                             <span asp-validation-for="ListPrice" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
-                            <input asp-for="Price" class="form-control border-0 shadow" />
-                            <label asp-for="Price" class="ms-2"></label>
-                            <span asp-validation-for="Price" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="Price50" class="form-control border-0 shadow" />
-                            <label asp-for="Price50" class="ms-2"></label>
-                            <span asp-validation-for="Price50" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating py-2 col-12">
-                            <input asp-for="Price100" class="form-control border-0 shadow" />
-                            <label asp-for="Price100" class="ms-2"></label>
-                            <span asp-validation-for="Price100" class="text-danger"></span>
+                            <input asp-for="Manufactorer" class="form-control border-0 shadow" />
+                            <label asp-for="Manufactorer" class="ms-2"></label>
+                            <span asp-validation-for="Manufactorer" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             <select asp-for="Category" asp-items="ViewBag.CategoryList" class="form-select border-0 shadow">
@@ -98,20 +78,10 @@
             tinymce.init({
               selector: 'textarea',
               plugins: [
-                // Core editing features
-                'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
-                // Your account includes a free trial of TinyMCE premium features
-                // Try the most popular premium features until Nov 9, 2024:
-                'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
-                // Early access to document converters
-                'importword', 'exportword', 'exportpdf'
               ],
-              toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-              tinycomments_mode: 'embedded',
-              tinycomments_author: 'Author name',
               mergetags_list: [
-                { value: 'First.Name', title: 'First Name' },
-                { value: 'Email', title: 'Email' },
+                { value: 'First.Name', ProductName: 'First Name' },
+                { value: 'Email', ProductName: 'Email' },
               ],
               ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
               exportpdf_converter_options: { 'format': 'Letter', 'margin_top': '1in', 'margin_right': '1in', 'margin_bottom': '1in', 'margin_left': '1in' },

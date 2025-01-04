@@ -16,34 +16,16 @@ namespace WebdotNet.Models
         [Key]
         public int ID { get; set; } //if we set this as the 'classname'+'entity' this will be treated as primary key\
         [Required]
-        [DisplayName("Book Title")]
+        [DisplayName("Product Name")]
         [MaxLength(30)]
-        public required string Title { get; set; }
+        public required string ProductName { get; set; }
         public string Description { get; set; }
-        [DisplayName("Author")]
-        [Required]
-        public string Author { get; set; }
-        [Required]
-        public string ISBN { get; set; }
+        [DisplayName("Manufactorer")]
+        public string Manufactorer { get; set; }
         [Required]
         [Display(Name = "List Price")]
         [Range(1, 1000)]
         public double ListPrice { get; set; }
-
-        [Required]
-        [Display(Name = "Price for 1-50")]
-        [Range(1, 1000)]
-        public double Price { get; set; }
-
-        [Required]
-        [Display(Name = "Price for 50+")]
-        [Range(1, 1000)]
-        public double Price50 { get; set; }
-
-        [Required]
-        [Display(Name = "Price for 100+")]
-        [Range(1, 1000)]
-        public double Price100 { get; set; }
         [Required]
         [Display(Name = "Category Name")]
 

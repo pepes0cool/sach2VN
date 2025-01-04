@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebdotNet.DataAccess.Repository.IRepository;
 using WebdotNet.Models;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using WebdotNet.DataAccess.Data;
 
 namespace WebdotNet.Areas.Customer.Controllers
 {
@@ -12,16 +15,53 @@ namespace WebdotNet.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, ApplicationDbContext context)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            IEnumerable<Products> productList = _unitOfWork.Products.GetAll();
+            ViewData["CurrentFilter"] = searchString;
+            var products = from p in _context.Products
+                           select p;
+            IEnumerable<Products> productList;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.ProductName.Contains(searchString));
+                productList = products.ToList();
+            }
+            else
+            {
+                productList = _unitOfWork.Products.GetAll();
+            }
+            return View(productList);
+        }
+        public IActionResult Category()
+        {
+            List<Category> objCategory = _unitOfWork.Category.GetAll().ToList();
+            return View(objCategory);
+        }
+        public IActionResult ViewCategory(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Category? categoryfromDb = _unitOfWork.Category.Get(u => u.ID == id);
+            if (categoryfromDb == null)
+            {
+                return NotFound();
+            }
+            var products = from p in _context.Products
+                           select p;
+            IEnumerable<Products> productList;
+            products = products.Where(p => p.Category == categoryfromDb.Name);
+            productList = products.ToList();
             return View(productList);
         }
 
@@ -46,7 +86,7 @@ namespace WebdotNet.Areas.Customer.Controllers
             obj.ApplicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userID);
             obj.Product = _unitOfWork.Products.Get(u => u.ID == obj.ProductId);
             obj.Id = 0;
-            obj.Price = obj.Product.Price;
+            obj.Price = obj.Product.ListPrice;
             ShoppingCart cartFromDB = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userID && u.ProductId == obj.ProductId);
             if(cartFromDB == null)
             {
